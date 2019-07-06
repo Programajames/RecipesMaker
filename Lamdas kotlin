@@ -1,0 +1,87 @@
+//declaramos las variables fuera de la funcion, tambien se puede dentro
+var salir = false
+var almacenar = ""
+
+
+
+
+fun main() {
+
+  //En este paso creamos el menu y creamos el "do" para almacenar los ingredientes
+    do {
+        makeMenu()
+        var MenuApp: String? = readLine()
+
+        // primera opcion (nombre de la receta) y la lista de ingredientes, que se iran almacenando en la receta
+        when (MenuApp?.toInt()) {
+            1 -> {
+                println("Cúal es el nombre de tu receta")
+                var Name: String? = readLine()
+                almacenar += "::RECETA::\nNOMBRE: $Name\n"
+
+                do {
+                    println("Agrega ingrediente, selecciona opción:")
+                    makeRecipe()
+                    var Ingrediente: String? = readLine()
+                    when(Ingrediente?.toInt()) {
+                        1 -> almacenar += "Añadir: agua\n"
+                        2 -> almacenar += "Añadir: leche\n"
+                        3 -> almacenar += "Añadir: carne\n"
+                        4 -> almacenar += "Añadir: verduras\n"
+                        5 -> almacenar += "Añadir: frutas\n"
+                        6 -> almacenar += "Añadir: cereal\n"
+                        7 -> almacenar += "Añadir: huevos\n"
+                        8 -> almacenar += "Añadir: aceite\n"
+                        else -> Ingrediente = 0.toString()
+                    }
+                } while (Ingrediente?.toInt() != 0)
+            }
+            //nos indica si tenemos algo guardado en nuestras recetas (llamamos lamda)
+            2 -> {
+                VerReceta(almacenar)
+            }
+            //Aqui creamos la opcion salir de la app
+            3 -> {
+                MenuApp = 0.toString()
+                salir = true
+            }
+            //el else indicara que no se a seleccionado ningun ingrediente de la lista
+            else -> {
+                println("Ingrediente no reconocido!!")
+            }
+        }
+    } while (!salir)
+}
+//creamos lamda para definir el menu
+fun makeMenu(): Unit {
+    println("""
+        ::Bienvenido a Recipe Maker::
+        Selecciona la opción deseada
+        1. Hacer una receta
+        2. Ver mis recetas
+        3. Salir
+    """.trimIndent())
+}
+//creamos la funcion para recoger los ingredientes de la receta
+fun makeRecipe(): Unit {
+    println("""
+        ::INGREDIENTES::
+        1. agua
+        2. leche
+        3. carne
+        4. verduras
+        5. frutas
+        6. cereal
+        7. huevos
+        8. aceite
+        0. No necesito más ingredientes.
+    """.trimIndent())
+}
+//creamos la función para q nos imprima la receta
+fun VerReceta(recipe: String): Unit {
+    if(almacenar.isEmpty()) {
+        println("No hay recetas")
+    } else {
+        println(recipe)
+    }
+}
